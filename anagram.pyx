@@ -44,9 +44,6 @@ def generate_random_chars(size):
         for _ in range(size)
     ]
 
-def timeit(fnstr1, str2, size):
-    pass
-
 def bench():
     sizes = [
         100 * p
