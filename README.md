@@ -6,3 +6,6 @@ Python 3.x is required to run this benchmark.
 $ pip install -r requirements.txt
 $ make
 ```
+
+Current results:
+![results](./anagrams.png)
