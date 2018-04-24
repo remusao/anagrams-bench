@@ -21,6 +21,9 @@ def anagram_primes(const char* str1, const char* str2, int length):
 def anagram_counter(str1: bytes, str2: bytes):
     return Counter(str1) == Counter(str2)
 
+def anagram_sort(str1: bytes, str2: bytes):
+    return sorted(str1) == sorted(str2)
+
 cdef bint anagram_array(const char* str1, const char* str2, int length):
     # Init array of 26 cells set to 0 (one for each letter)
     cdef int counter[26]
@@ -57,6 +60,7 @@ def bench():
     timings_array = []
     timings_counter = []
     timings_primes = []
+    timings_sort = []
 
     for size in sizes:
         print('>> Bench for size %s' % size)
@@ -79,11 +83,20 @@ def bench():
         # Anagram Counter
         t0 = time.time()
         for _ in range(iterations):
-            anagram_counter(str1, str2 )
+            anagram_counter(str1, str2)
         total = time.time() - t0
         per_call = total / iterations
         timings_counter.append(per_call)
         print('anagram_counter %s per/call' % per_call)
+
+        # Anagram Sort
+        t0 = time.time()
+        for _ in range(iterations):
+            anagram_sort(str1, str2)
+        total = time.time() - t0
+        per_call = total / iterations
+        timings_sort.append(per_call)
+        print('anagram_sort %s per/call' % per_call)
 
         # Anagram Primes
         t0 = time.time()
@@ -99,6 +112,8 @@ def bench():
     plt.plot(
         y, timings_array, 'r--',
         y, timings_counter, 'bs',
-        y, timings_primes, 'g^')
+        y, timings_primes, 'g^',
+        y, timings_sort, 'g+',
+    )
     plt.savefig('anagrams.png')
     plt.show()
